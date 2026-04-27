@@ -48,9 +48,19 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
+def _validate_prices(args: argparse.Namespace, parser: argparse.ArgumentParser) -> None:
+    """Validate that price arguments are positive values."""
+    if args.cpu_price <= 0:
+        parser.error("--cpu-price must be a positive value.")
+    if args.mem_price <= 0:
+        parser.error("--mem-price must be a positive value.")
+
+
 def run(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
+
+    _validate_prices(args, parser)
 
     collector = MetricsCollector(kubeconfig=args.kubeconfig)
     try:
