@@ -72,3 +72,18 @@ class CostSummaryFormatter:
             "top_namespace": stats.top_namespace,
             "top_namespace_hourly": round(stats.top_namespace_hourly, 6),
         }
+
+    def top_n(self, n: int) -> List[NamespaceCost]:
+        """Return the top *n* namespaces sorted by hourly cost (descending).
+
+        Args:
+            n: Maximum number of namespaces to return.  If *n* exceeds the
+               total number of tracked namespaces, all namespaces are returned.
+
+        Returns:
+            A list of :class:`NamespaceCost` objects ordered from highest to
+            lowest hourly cost.
+        """
+        if n < 1:
+            raise ValueError(f"n must be a positive integer, got {n!r}")
+        return sorted(self._costs, key=lambda c: c.hourly_cost, reverse=True)[:n]
