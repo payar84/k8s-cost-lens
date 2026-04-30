@@ -1,4 +1,19 @@
-"""Report formatters and exporters for k8s-cost-lens."""
+"""Report formatters and exporters for k8s-cost-lens.
+
+This module provides a collection of formatters and exporters for generating
+cost reports in various formats. Available components:
+
+- CostReportFormatter: General-purpose cost report formatting
+- CostReportExporter: Export reports to files (CSV, JSON, etc.)
+- AnomalyReportFormatter: Format cost anomaly detection results
+- TrendReportFormatter: Format cost trend analysis
+- BudgetReportFormatter: Format budget tracking and comparisons
+- ThresholdReportFormatter: Format threshold breach alerts
+- CostSummaryFormatter: Format high-level cost summaries
+- ForecastReportFormatter: Format cost forecast projections
+- CostComparisonFormatter: Format cost comparisons across periods or namespaces
+- AllocationReportFormatter: Format resource cost allocation breakdowns
+"""
 
 from k8s_cost_lens.report.formatter import CostReportFormatter
 from k8s_cost_lens.report.exporter import CostReportExporter
