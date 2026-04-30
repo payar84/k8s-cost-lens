@@ -12,6 +12,7 @@ from k8s_cost_lens.report.allocation_formatter import AllocationReportFormatter
 from k8s_cost_lens.report.label_filter_formatter import LabelFilterReportFormatter
 from k8s_cost_lens.report.group_formatter import GroupCostFormatter
 from k8s_cost_lens.report.tag_policy_formatter import TagPolicyReportFormatter
+from k8s_cost_lens.report.cap_formatter import CapReportFormatter
 
 __all__ = [
     "CostReportFormatter",
@@ -28,4 +29,5 @@ __all__ = [
     "LabelFilterReportFormatter",
     "GroupCostFormatter",
     "TagPolicyReportFormatter",
+    "CapReportFormatter",
 ]
