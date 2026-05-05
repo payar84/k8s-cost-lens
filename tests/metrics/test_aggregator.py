@@ -68,3 +68,18 @@ def test_clear_resets_state(aggregator):
     aggregator.clear()
     assert aggregator.aggregate() == []
     assert aggregator.namespace_count == 0
+
+
+def test_namespace_appearing_in_later_snapshot_is_included(aggregator):
+    """A namespace first seen in a later snapshot should only average over
+    the snapshots in which it appeared, not all snapshots."""
+    aggregator.add_snapshot([make_nm("default", 1.0, 100.0)])
+    aggregator.add_snapshot([
+        make_nm("default", 3.0, 300.0),
+        make_nm("new-ns", 2.0, 200.0),
+    ])
+    results = {r.namespace: r for r in aggregator.aggregate()}
+    assert results["default"].avg_cpu_cores == pytest.approx(2.0)
+    assert results["default"].sample_count == 2
+    assert results["new-ns"].avg_cpu_cores == pytest.approx(2.0)
+    assert results["new-ns"].sample_count == 1
