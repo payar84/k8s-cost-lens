@@ -61,9 +61,27 @@ class NamespaceBudgetChecker:
         hourly: Optional[float] = None,
         monthly: Optional[float] = None,
     ) -> None:
+        """Set hourly and/or monthly budget limits for a namespace.
+
+        Args:
+            namespace: The Kubernetes namespace name.
+            hourly: Maximum allowed hourly cost in USD. Pass None to leave unchanged.
+            monthly: Maximum allowed monthly cost in USD. Pass None to leave unchanged.
+
+        Raises:
+            ValueError: If a provided budget value is negative.
+        """
         if hourly is not None:
+            if hourly < 0:
+                raise ValueError(
+                    f"Hourly budget for '{namespace}' must be non-negative, got {hourly}"
+                )
             self.hourly_budgets[namespace] = hourly
         if monthly is not None:
+            if monthly < 0:
+                raise ValueError(
+                    f"Monthly budget for '{namespace}' must be non-negative, got {monthly}"
+                )
             self.monthly_budgets[namespace] = monthly
 
     def check(self, costs: List[NamespaceCost]) -> List[BudgetStatus]:
