@@ -75,3 +75,19 @@ class RollingCostFormatter:
             f"${total_monthly:.2f}/mo  "
             f"(window={self._window_size}, namespaces={len(self._costs)})"
         )
+
+    def top_n(self, n: int) -> "RollingCostFormatter":
+        """Return a new formatter containing only the *n* most expensive namespaces.
+
+        Namespaces are ranked by average monthly cost in descending order.
+        If *n* is greater than the number of available namespaces, all
+        namespaces are included.
+
+        Args:
+            n: Maximum number of namespaces to include.
+
+        Returns:
+            A new :class:`RollingCostFormatter` with the filtered cost list.
+        """
+        sorted_costs = sorted(self._costs, key=lambda rc: rc.avg_monthly, reverse=True)
+        return RollingCostFormatter(sorted_costs[:n], self._window_size)
