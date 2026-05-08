@@ -90,6 +90,22 @@ def test_anomaly_count(formatter):
     assert formatter.anomaly_count() == 1
 
 
+def test_anomaly_count_empty():
+    """anomaly_count() should return 0 when there are no results."""
+    f = AnomalyReportFormatter(results=[])
+    assert f.anomaly_count() == 0
+
+
+def test_anomaly_count_all_anomalies():
+    """anomaly_count() should equal the total number of results when all are anomalies."""
+    results = [
+        make_result("ns-a", 9.0, z_score=3.1, is_anomaly=True),
+        make_result("ns-b", 8.5, z_score=4.0, is_anomaly=True),
+    ]
+    f = AnomalyReportFormatter(results=results)
+    assert f.anomaly_count() == 2
+
+
 def test_summary_line(formatter):
     summary = formatter.summary_line()
     assert "1/3" in summary
