@@ -1,5 +1,5 @@
 """Report formatters for k8s-cost-lens."""
-from k8s_cost_lens.report.formatter import CostReportFormatter, ReportRow
+from k8s_cost_lens.report.formatter import CostReportFormatter
 from k8s_cost_lens.report.exporter import CostReportExporter
 from k8s_cost_lens.report.anomaly_formatter import AnomalyReportFormatter
 from k8s_cost_lens.report.trend_formatter import TrendReportFormatter
@@ -16,10 +16,15 @@ from k8s_cost_lens.report.cap_formatter import CapReportFormatter
 from k8s_cost_lens.report.rolling_formatter import RollingCostFormatter
 from k8s_cost_lens.report.baseline_formatter import BaselineComparisonFormatter
 from k8s_cost_lens.report.quota_formatter import QuotaReportFormatter
+from k8s_cost_lens.report.exporter_formatter import PrometheusMetricsFormatter
+from k8s_cost_lens.report.topn_formatter import TopNReportFormatter
+from k8s_cost_lens.report.heatmap_formatter import HeatmapFormatter
+from k8s_cost_lens.report.spike_formatter import SpikeReportFormatter
+from k8s_cost_lens.report.velocity_formatter import VelocityReportFormatter
+from k8s_cost_lens.report.efficiency_formatter import EfficiencyReportFormatter
 
 __all__ = [
     "CostReportFormatter",
-    "ReportRow",
     "CostReportExporter",
     "AnomalyReportFormatter",
     "TrendReportFormatter",
@@ -36,4 +41,10 @@ __all__ = [
     "RollingCostFormatter",
     "BaselineComparisonFormatter",
     "QuotaReportFormatter",
+    "PrometheusMetricsFormatter",
+    "TopNReportFormatter",
+    "HeatmapFormatter",
+    "SpikeReportFormatter",
+    "VelocityReportFormatter",
+    "EfficiencyReportFormatter",
 ]
