@@ -91,3 +91,11 @@ def test_str_representation_includes_namespace():
     v = PolicyViolation(namespace="ns-x", missing_tags=["team"], invalid_tags={})
     assert "ns-x" in str(v)
     assert "team" in str(v)
+
+
+def test_check_returns_violation_with_correct_namespace(enforcer):
+    """Ensure each PolicyViolation carries the namespace of the offending metric."""
+    nm = make_nm("my-namespace", {"team": "ops", "env": "bad-value"})
+    violations = enforcer.check([nm])
+    assert len(violations) == 1
+    assert violations[0].namespace == "my-namespace"
